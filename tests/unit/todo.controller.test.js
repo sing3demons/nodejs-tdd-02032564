@@ -12,4 +12,3 @@ describe('TodoController.createTodo', () => {
     expect(TodoModel.create).toBeCalled()
   })
 })
-

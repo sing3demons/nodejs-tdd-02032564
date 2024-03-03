@@ -34,6 +34,17 @@ describe('TodoController.createTodo', () => {
   it('should return json body in response', async () => {
     TodoModel.create.mockReturnValue(mockBody)
     await TodoController.createTodo(req, res)
+    expect(res._isEndCalled()).toBeTruthy()
     expect(res._getJSONData()).toStrictEqual(mockBody)
+  })
+
+  it('should handle errors', async () => {
+    const errorMessage = { message: 'Done property missing' }
+    const rejectedPromise = Promise.reject(errorMessage)
+    TodoModel.create.mockReturnValue(rejectedPromise)
+    await TodoController.createTodo(req, res)
+    expect(res.statusCode).toBe(400)
+    expect(res._isEndCalled()).toBeTruthy()
+    expect(res._getJSONData()).toStrictEqual(errorMessage)
   })
 })

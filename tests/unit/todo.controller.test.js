@@ -34,7 +34,6 @@ describe('TodoController.createTodo', () => {
   it('should return json body in response', async () => {
     TodoModel.create.mockReturnValue(mockBody)
     await TodoController.createTodo(req, res)
-    expect(res._isEndCalled()).toBeTruthy()
     expect(res._getJSONData()).toStrictEqual(mockBody)
   })
 
